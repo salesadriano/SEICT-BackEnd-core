@@ -1,7 +1,6 @@
 package br.com.lamppit.accesscontrol.repository;
 
 import br.com.lamppit.accesscontrol.model.ResponsibleAreaUser;
-import br.com.lamppit.accesscontrol.model.dto.EntityDTO;
 import br.com.lamppit.accesscontrol.model.dto.UserRoleDTO;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;

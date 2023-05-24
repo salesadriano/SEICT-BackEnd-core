@@ -1,13 +1,7 @@
 package br.com.lamppit.accesscontrol.controller;
 
-import br.com.lamppit.accesscontrol.configure.RandomConfigure;
-import br.com.lamppit.accesscontrol.model.Action;
-import br.com.lamppit.accesscontrol.model.Profile;
 import br.com.lamppit.accesscontrol.model.ProfileActions;
-import br.com.lamppit.accesscontrol.model.ProfileSystems;
 import br.com.lamppit.accesscontrol.repository.ActionRepository;
-import br.com.lamppit.accesscontrol.repository.ProfileActionsRepository;
-import br.com.lamppit.accesscontrol.repository.ProfileRepository;
 import br.com.lamppit.accesscontrol.repository.ProfileSystemsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -42,8 +36,6 @@ class ProfileActionsControllerTest {
     @Autowired
     private ActionRepository actionRepository;
 
-    private RandomConfigure randomConfigure = new RandomConfigure();
-
 
 
     @Test
@@ -51,8 +43,7 @@ class ProfileActionsControllerTest {
         assertThat(profileActionsController).isNotNull();
     }
 
-    @Test
-    void ProfileActionsControllerTest() {
+    public ProfileActionsControllerTest() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
     }

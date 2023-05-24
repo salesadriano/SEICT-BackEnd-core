@@ -1,8 +1,6 @@
 package br.com.lamppit.accesscontrol.controller;
 
-import br.com.lamppit.accesscontrol.configure.RandomConfigure;
 import br.com.lamppit.accesscontrol.model.ExtraPermissions;
-import br.com.lamppit.accesscontrol.model.ProfileActions;
 import br.com.lamppit.accesscontrol.model.User;
 import br.com.lamppit.accesscontrol.repository.ExtraPermissionsRepository;
 import br.com.lamppit.accesscontrol.repository.ProfileActionsRepository;
@@ -17,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -42,15 +39,12 @@ class ExtraPermissionsControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private RandomConfigure randomConfigure = new RandomConfigure();
-
     @Test
     void contextLoads() throws Exception {
         assertThat(extraPermissionsRepository).isNotNull();
     }
 
-    @Test
-    void ExtraPermissionsControllerTest() {
+    public ExtraPermissionsControllerTest() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
     }

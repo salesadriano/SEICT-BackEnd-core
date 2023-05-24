@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -27,9 +26,6 @@ class ActionControllerTest {
     private ActionRepository actionRepository;
 
     @Autowired
-    private ActionController actionController;
-
-    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -37,8 +33,7 @@ class ActionControllerTest {
 
     private RandomConfigure randomConfigure = new RandomConfigure();
 
-    @Test
-    public void ActionControllerTest(){
+    public ActionControllerTest(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
     }

@@ -2,8 +2,6 @@ package br.com.lamppit.accesscontrol.service;
 
 import br.com.lamppit.accesscontrol.model.Office;
 import br.com.lamppit.accesscontrol.repository.OfficeRepository;
-import br.com.lamppit.accesscontrol.repository.UserRepository;
-import br.com.lamppit.core.exception.EntityNotFound;
 import br.com.lamppit.core.exception.EntityValidationException;
 import br.com.lamppit.core.service.ServiceJpa;
 import org.springframework.beans.factory.annotation.Autowired;

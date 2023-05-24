@@ -6,7 +6,6 @@ import br.com.lamppit.core.exception.EntityValidationException;
 import br.com.lamppit.core.service.ServiceJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

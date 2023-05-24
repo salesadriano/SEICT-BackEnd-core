@@ -1,7 +1,6 @@
 package br.com.lamppit.accesscontrol.service;
 
 import br.com.lamppit.accesscontrol.model.ResponsibleAreaUser;
-import br.com.lamppit.accesscontrol.model.dto.EntityDTO;
 import br.com.lamppit.accesscontrol.model.dto.UserRoleDTO;
 import br.com.lamppit.accesscontrol.repository.ResponsibleAreaUserRepository;
 import br.com.lamppit.core.dto.MessageDTO;

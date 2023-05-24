@@ -1,5 +1,6 @@
 package br.com.lamppit.accesscontrol.repository;
 
+import br.com.lamppit.accesscontrol.model.Profile;
 import br.com.lamppit.accesscontrol.model.ProfileUser;
 import br.com.lamppit.accesscontrol.model.Systems;
 import br.com.lamppit.accesscontrol.model.dto.EntityDTO;
@@ -7,7 +8,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -38,4 +38,7 @@ public interface ProfileUserRepository extends JpaRepository<ProfileUser, Long> 
             " where pu.user.id = :userId and ps.system.id = :systemId")
     Iterable<EntityDTO> getByUserIdAndSystemId(Long userId, Long systemId);
 
+    @Query("select  ps.profile from ProfileUser pu inner join pu.profileSystems ps " +
+            " where pu.user.id = :userId and ps.system.id = :systemId ")
+    List<Profile> getProfilesByUserAndSystems(Long userId, Long systemId);
 }

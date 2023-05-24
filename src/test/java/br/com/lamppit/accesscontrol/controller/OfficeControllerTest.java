@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,9 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OfficeControllerTest {
 
     @Autowired
-    private OfficeController officeController;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
@@ -40,8 +36,7 @@ class OfficeControllerTest {
     @Autowired
     private OfficeRepository officeRepository;
 
-    @Test
-    void OfficeControllerTest() {
+    public OfficeControllerTest() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
     }
@@ -51,9 +46,9 @@ class OfficeControllerTest {
         assertThat(officeRepository).isNotNull();
     }
 
-    private int generateNumber() {
-        return (int) Math.random();
-    }
+    // private int generateNumber() {
+    //     return (int) Math.random();
+    // }
 
     @Test
     public void getAllOffices() throws Exception {

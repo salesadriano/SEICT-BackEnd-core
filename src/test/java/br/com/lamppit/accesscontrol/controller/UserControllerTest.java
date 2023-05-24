@@ -1,11 +1,9 @@
 package br.com.lamppit.accesscontrol.controller;
 
 import br.com.lamppit.accesscontrol.configure.RandomConfigure;
-import br.com.lamppit.accesscontrol.controller.UserController;
 import br.com.lamppit.accesscontrol.model.User;
 import br.com.lamppit.accesscontrol.repository.UserRepository;
 import br.com.lamppit.core.dto.ExceptionDTO;
-import br.com.lamppit.core.entity.Operator;
 import br.com.lamppit.core.exception.EntityValidationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -107,7 +105,6 @@ public class UserControllerTest{
 
     @Test
     public void createUserFailsLoginAlreadyExists() throws Exception {
-        User userBase = userRepository.findAll().get(0);
         User user = User.builder()
                 .password("123456")
                 .name(randomConfigure.randomNames())
@@ -224,7 +221,6 @@ public class UserControllerTest{
     @Test
     void updateUserSuccess() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = randomConfigure.randomNames();
         user.setName(name);
         String json = objectMapper.writeValueAsString(user);
@@ -240,7 +236,6 @@ public class UserControllerTest{
     @Test
     void updateUserFailWhenPasswordIsNull() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = randomConfigure.randomNames();
         user.setName(name);
         user.setPassword(null);
@@ -261,7 +256,6 @@ public class UserControllerTest{
     @Test
     void updateUserFailWhenEmailIsNull() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = randomConfigure.randomNames();
         user.setName(name);
         user.setEmail(null);
@@ -282,7 +276,6 @@ public class UserControllerTest{
     @Test
     void updateUserFailWhenNameIsEmpty() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = "";
         user.setName(name);
         String json = objectMapper.writeValueAsString(user);
@@ -302,7 +295,6 @@ public class UserControllerTest{
     @Test
     void updateUserFailWhenNameContainsNumbers() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = "123";
         user.setName(name);
         String json = objectMapper.writeValueAsString(user);
@@ -322,7 +314,6 @@ public class UserControllerTest{
     @Test
     void updateUserFailWhenNameContainsSpecialCharacters() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = "!@#$%^&*()_+";
         user.setName(name);
         String json = objectMapper.writeValueAsString(user);
@@ -342,7 +333,6 @@ public class UserControllerTest{
     @Test
     void updateUserFailWhenNameSmallerThan3Characters() throws Exception {
         User user = userRepository.findAll().get(0);
-        Long id = user.getId();
         String name = "AB";
         user.setName(name);
         String json = objectMapper.writeValueAsString(user);

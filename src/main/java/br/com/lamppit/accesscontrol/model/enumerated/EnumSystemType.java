@@ -7,8 +7,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 
-import javax.persistence.EntityNotFoundException;
-
 @Getter
 @JsonSerialize(using = EnumSystemTypeSerializer.class)
 @JsonDeserialize(using = EnumSystemTypeDeserializer.class)

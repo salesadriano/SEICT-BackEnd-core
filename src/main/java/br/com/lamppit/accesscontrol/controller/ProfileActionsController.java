@@ -7,7 +7,6 @@ import br.com.lamppit.accesscontrol.service.ProfileActionsService;
 import br.com.lamppit.core.controller.Controller;
 import br.com.lamppit.core.dto.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

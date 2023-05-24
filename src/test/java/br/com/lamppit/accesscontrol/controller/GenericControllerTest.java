@@ -47,7 +47,7 @@ public class GenericControllerTest {
 	
 	@Test
 	public void updateEntity() {
-		EntityTest entityTest = new EntityTest(1, "entity teste atualizado");
+		// EntityTest entityTest = new EntityTest(1, "entity teste atualizado");
 	}
 
 }

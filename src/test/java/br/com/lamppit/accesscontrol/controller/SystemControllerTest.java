@@ -46,15 +46,11 @@ class SystemControllerTest {
 
     List<Systems> systemsList;
 
-    @Test
-    void SystemControllerTest() {
+    public SystemControllerTest() {
+        this.systemsList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         assertThat(systemController).isNotNull();
-    }
-
-    public SystemControllerTest() {
-        this.systemsList = new ArrayList<>();
     }
 
     @Test

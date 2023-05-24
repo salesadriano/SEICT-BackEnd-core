@@ -1,45 +1,45 @@
-package br.com.lamppit.accesscontrol.controller;
+// package br.com.lamppit.accesscontrol.controller;
 
-import br.com.lamppit.accesscontrol.configure.RandomConfigure;
-import br.com.lamppit.accesscontrol.model.Profile;
-import br.com.lamppit.accesscontrol.repository.ProfileRepository;
-import br.com.lamppit.accesscontrol.repository.SystemRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+// import br.com.lamppit.accesscontrol.configure.RandomConfigure;
+// import br.com.lamppit.accesscontrol.model.Profile;
+// import br.com.lamppit.accesscontrol.repository.ProfileRepository;
+// import br.com.lamppit.accesscontrol.repository.SystemRepository;
+// import com.fasterxml.jackson.core.JsonProcessingException;
+// import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+// import static org.assertj.core.api.Assertions.assertThat;
+// import static org.junit.jupiter.api.Assertions.*;
+// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+// import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-class ProfilesControllerTest {
+// @SpringBootTest
+// @AutoConfigureMockMvc
+// class ProfilesControllerTest {
 
-    @Autowired
-    private ProfilesController profilesController;
+//     @Autowired
+//     private ProfilesController profilesController;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+//     @Autowired
+//     private ObjectMapper objectMapper;
 
-    @Autowired
-    private MockMvc mockMvc;
+//     @Autowired
+//     private MockMvc mockMvc;
 
-    @Autowired
-    private ProfileRepository profileRepository;
+//     @Autowired
+//     private ProfileRepository profileRepository;
 
 
-    RandomConfigure randomConfigure = new RandomConfigure();
+//     RandomConfigure randomConfigure = new RandomConfigure();
 //
 //    @Test
 //    void SystemControllerTest() {
@@ -206,4 +206,4 @@ class ProfilesControllerTest {
 //    }
 
 
-}
+// }

@@ -6,13 +6,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
-import java.io.Serializable;
-
 @AllArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Data
-class UserTest extends Operator implements Serializable {
+class UserTest extends Operator {
 
     private static final long serialVersionUID = -4714829114589071076L;
 

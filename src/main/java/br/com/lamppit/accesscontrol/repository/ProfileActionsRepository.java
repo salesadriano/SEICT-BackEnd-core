@@ -1,6 +1,8 @@
 package br.com.lamppit.accesscontrol.repository;
 
+import br.com.lamppit.accesscontrol.model.Profile;
 import br.com.lamppit.accesscontrol.model.ProfileActions;
+import br.com.lamppit.accesscontrol.model.dto.ActionPermissionDTO;
 import br.com.lamppit.accesscontrol.model.dto.EntityDTO;
 import br.com.lamppit.accesscontrol.model.dto.ProfileActionDTO;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,7 +17,7 @@ public interface ProfileActionsRepository extends JpaRepository<ProfileActions, 
     @Cacheable("allProfileActions")
     List<ProfileActions> findAll();
 
-    List <ProfileActions> findByProfileSystems_Id(Long profileSystemsId, Sort by);
+    List<ProfileActions> findByProfileSystems_Id(Long profileSystemsId, Sort by);
 
 
     boolean existsByAction_IdAndProfileSystems_Id(Long id, Long id1);
@@ -33,4 +35,14 @@ public interface ProfileActionsRepository extends JpaRepository<ProfileActions, 
             "inner join ps.profile p inner join ps.system s " +
             " where ps.id = :profileSystemsId")
     Iterable<ProfileActionDTO> getProfileActionsByProfileSystemsId(Long profileSystemsId);
+
+
+    @Query("select new br.com.lamppit.accesscontrol.model.dto.ActionPermissionDTO(pa.action, pa.isertable, pa.updatable, pa.deletable, pa.readable, pa.auditable) " +
+            "from ProfileActions pa inner join pa.action a inner join pa.profileSystems ps " +
+            "inner join ps.profile p inner join ps.system s " +
+            " where ps.profile in :profiles and pa.id not in ( select par.id from RevokePermissions rp inner join rp.profileAction par where rp.user.id = :userId ) " +
+            " and s.id = :systemId")
+    List<ActionPermissionDTO> getActionsPermited(List<Profile> profiles, Long userId, Long systemId);
+
+
 }

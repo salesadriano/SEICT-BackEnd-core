@@ -2,7 +2,6 @@ package br.com.lamppit.accesscontrol.model;
 
 import br.com.lamppit.core.entity.EntityBase;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
@@ -10,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Getter

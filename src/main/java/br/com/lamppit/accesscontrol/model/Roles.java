@@ -1,6 +1,9 @@
 package br.com.lamppit.accesscontrol.model;
 
+import br.com.lamppit.accesscontrol.model.enumerated.ImportantRoles;
+import br.com.lamppit.accesscontrol.serializer.ImportantRolesDeserializer;
 import br.com.lamppit.core.entity.EntityBase;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
@@ -34,6 +37,10 @@ public class Roles extends EntityBase implements Serializable {
     private String name;
 
     private String observation;
+
+    @Enumerated(EnumType.ORDINAL)
+    @JsonDeserialize(using = ImportantRolesDeserializer.class)
+    private ImportantRoles importantRoles;
 
 
 }

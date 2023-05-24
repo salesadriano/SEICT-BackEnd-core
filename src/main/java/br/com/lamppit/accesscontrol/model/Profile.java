@@ -19,6 +19,7 @@ import java.io.Serializable;
 @AuditTable(schema = "system_audit", value = "roles_audit")
 @Entity(name = "Profile")
 @Table(name = "profile", schema = "system")
+@EqualsAndHashCode(callSuper=false)
 public class Profile extends EntityBase implements Serializable {
 
     private static final long serialVersionUID = 8072006766127240755L;

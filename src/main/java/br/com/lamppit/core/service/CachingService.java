@@ -12,7 +12,11 @@ public class CachingService {
 	CacheManager cacheManager;
 
 	public void evictSingleCacheValue(String cacheName, String cacheKey) {
-		cacheManager.getCache(cacheName).evict(cacheKey);
+		Cache cache = cacheManager.getCache(cacheName);
+		
+		if (cache != null ) {
+			cache.evict(cacheKey);
+		}
 	}
 
 	public void evictAllCacheValues(String cacheName) {

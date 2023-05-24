@@ -1,6 +1,5 @@
 package br.com.lamppit.accesscontrol.service;
 
-import br.com.lamppit.accesscontrol.model.ExtraPermissions;
 import br.com.lamppit.accesscontrol.model.RevokePermissions;
 import br.com.lamppit.accesscontrol.repository.RevokePermissionsRepository;
 import br.com.lamppit.core.dto.MessageDTO;

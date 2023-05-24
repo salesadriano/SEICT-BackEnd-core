@@ -2,7 +2,6 @@ package br.com.lamppit.accesscontrol.model;
 
 import br.com.lamppit.core.entity.EntityBase;
 import lombok.*;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.Serializable;
 

@@ -1,8 +1,6 @@
 package br.com.lamppit.accesscontrol.service;
 
 import br.com.lamppit.accesscontrol.model.ExtraPermissions;
-import br.com.lamppit.accesscontrol.model.ProfileUser;
-import br.com.lamppit.accesscontrol.model.Systems;
 import br.com.lamppit.accesscontrol.repository.ExtraPermissionsRepository;
 import br.com.lamppit.core.dto.MessageDTO;
 import br.com.lamppit.core.exception.EntityNotFound;

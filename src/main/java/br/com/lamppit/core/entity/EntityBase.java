@@ -3,6 +3,7 @@ package br.com.lamppit.core.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.lamppit.accesscontrol.model.User;
+import br.com.lamppit.core.configuration.AuditListener;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +23,7 @@ import lombok.NoArgsConstructor;
 @MappedSuperclass
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditListener.class)
 public abstract class EntityBase {
 
 	@JsonIgnore
@@ -48,5 +51,5 @@ public abstract class EntityBase {
 	@JsonIgnore
 	@CreatedBy
 	@Column(updatable = false)
-	private Operator createdByUser;
+	private User createdByUser;
 }
