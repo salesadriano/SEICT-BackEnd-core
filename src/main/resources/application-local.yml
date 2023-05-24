@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: postgres
+    password: bla123x
+    hikari:
+      connection-timeout: 40000 
+      idle-timeout:  30000 
+      keepalive-time:  90000
+      max-lifetime:  100000
+      minimum-idle: 5
+      maximum-pool-size: 50
+      pool-name: api
+    url: jdbc:postgresql://localhost/postgres
+
+core:
+  allowed-origins: http://localhost:4200

@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: api
+    password: DB-is_d-Lmpp-BLa786
+    hikari:
+      connection-timeout: 40000 
+      idle-timeout:  30000 
+      keepalive-time:  90000
+      max-lifetime:  100000
+      minimum-idle: 5
+      maximum-pool-size: 50
+      pool-name: api
+    url: jdbc:postgresql://10.150.0.3/postgres
+
+core:
+  allowed-origins: https://devappseictac.lampp-it.com.br

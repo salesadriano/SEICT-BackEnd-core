@@ -1,0 +1,89 @@
+image: maven:3.8.1-openjdk-17-slim
+
+cache:
+  key: maven-cache
+  paths:
+  - .m2/repository
+
+stages:
+  # - tests
+  - sonar
+  - package
+  - build
+  - deploy
+  - cleanup
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "homolog" || $CI_COMMIT_BRANCH == "main"
+      when: always
+
+# mvn-tests:
+#   image: maven:3.8.1-openjdk-17-slim
+#   stage: tests
+#   only:
+#     - develop
+#     - homolog
+#   script:
+#     - mvn test
+
+mvn-sonar:
+  stage: sonar
+  only:
+    - develop
+  script:
+    - mvn clean verify -Dmaven.test.skip sonar:sonar -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_KEY"
+
+mvn-package:
+  stage: package
+  script: mvn -f pom.xml clean package -Dmaven.test.skip -Dspring.profiles.active="$CI_COMMIT_BRANCH"
+  artifacts:
+    paths:
+      - target/*.war
+
+docker-build:
+  image: docker:stable
+  services:
+    - name: docker:dind
+      alias: localdocker
+  variables:
+    DOCKER_HOST: "tcp://localdocker:2375"
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  environment: "$CI_COMMIT_BRANCH"
+  stage: build
+  script:
+    - docker build -t us-east4-docker.pkg.dev/seict-ac-lamppit-cloud-hosting/app/api:$CI_COMMIT_SHORT_SHA .
+    - echo $DOCKER_AUTH > ~/.docker/config.json
+    - docker push us-east4-docker.pkg.dev/seict-ac-lamppit-cloud-hosting/app/api:$CI_COMMIT_SHORT_SHA
+    
+k8s-deploy:
+  image: 
+    name: bitnami/kubectl
+    entrypoint: [""]
+  stage: deploy
+  script:
+    - kubectl config set-cluster k8s --server=https://$KUBE_HOST:6443 --certificate-authority=$KUBE_API_CERT
+    - kubectl config set-credentials deployer --token=$KUBE_API_TOKEN
+    - kubectl config set-context k8s --cluster k8s --user deployer
+    - kubectl config use-context k8s
+    - kubectl set image deployment/api app=us-east4-docker.pkg.dev/seict-ac-lamppit-cloud-hosting/app/api:$CI_COMMIT_SHORT_SHA
+    - kubectl rollout status deployment/api
+
+gcp-cleanup:
+  image:
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  stage: cleanup
+  script: 
+    - gcloud auth activate-service-account --key-file=$SA_KEY_FILE
+    - gcloud artifacts docker images list us-east4-docker.pkg.dev/seict-ac-lamppit-cloud-hosting/app/api --format="table[no-heading](version)" --sort-by=CREATE_TIME | grep -v ^$ > image_list
+    - |-
+      if [ $? -eq 0 ]; then 
+        echo $(( $(cat image_list|wc -l) - 2 )) > images_to_remove
+        if [ $(cat images_to_remove) -gt 0 ]; then
+          head -n $(cat images_to_remove) image_list > image_list_remove
+          while read line; do
+            gcloud artifacts docker images delete "us-east4-docker.pkg.dev/seict-ac-lamppit-cloud-hosting/app/api@$line" --delete-tags --quiet; 
+          done < image_list_remove
+        fi
+      fi 

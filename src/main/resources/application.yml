@@ -1,0 +1,40 @@
+server:
+  error:
+    include-message: always
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true
+
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  main:
+    allow-circular-references: true
+  jackson:
+    date-format: dd/MM/yyyy
+    locale: pt_br
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: Brazil/East
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format-sql: true
+        show-sql: false
+        type: 'trace'
+        use-sql-comments: true
+        enable-lazy-load-no-trans: true
+    show-sql: false
+  sql:
+    init:
+      platform: postgres
+  application:
+    name: api
