@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.SignatureException;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Component

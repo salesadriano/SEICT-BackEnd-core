@@ -6,9 +6,9 @@ import org.hibernate.Hibernate;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,6 +23,9 @@ import java.util.Objects;
 @Table(name = "office", schema = "system")
 @AuditTable(schema = "system_audit", value = "office_audit")
 public class Office extends EntityBase implements Serializable {
+   
+    private static final long serialVersionUID = -6869557174924742145L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

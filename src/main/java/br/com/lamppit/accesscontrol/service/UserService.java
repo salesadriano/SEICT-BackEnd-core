@@ -1,6 +1,6 @@
 package br.com.lamppit.accesscontrol.service;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import br.com.lamppit.accesscontrol.model.ProfileActions;
 import br.com.lamppit.accesscontrol.model.ProfileUser;

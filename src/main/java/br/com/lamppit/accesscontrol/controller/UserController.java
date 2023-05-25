@@ -8,7 +8,7 @@ import br.com.lamppit.accesscontrol.model.User;
 import br.com.lamppit.accesscontrol.service.UserService;
 import br.com.lamppit.core.controller.Controller;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
