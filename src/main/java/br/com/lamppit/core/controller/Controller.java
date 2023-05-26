@@ -2,8 +2,6 @@ package br.com.lamppit.core.controller;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.lamppit.core.exception.EntityValidationException;
 import br.com.lamppit.core.service.Service;
+import jakarta.validation.Valid;
 
 public abstract class Controller<Entity extends Serializable, TypeSequence extends java.lang.Number> {
 

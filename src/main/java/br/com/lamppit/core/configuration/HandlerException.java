@@ -5,16 +5,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.context.request.WebRequest;
 
 import br.com.lamppit.core.dto.ErrorDTO;
 import br.com.lamppit.core.dto.ExceptionDTO;
@@ -41,11 +42,11 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(
+		MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		ExceptionDTO dto = ExceptionDTO.builder().message("Erro ao validar campos").build();
-		List<ErrorDTO> errors = new ArrayList<>();
-		for (FieldError fieldError : e.getBindingResult().getFieldErrors())
+		List<ErrorDTO> errors = new ArrayList<ErrorDTO>();
+		for (FieldError fieldError : ex.getBindingResult().getFieldErrors())
 			errors.add(ErrorDTO.builder().field(fieldError.getField()).message(fieldError.getDefaultMessage()).build());
 		dto.setErrors(errors);
 		return new ResponseEntity<Object>(dto, HttpStatus.BAD_REQUEST);
@@ -59,11 +60,10 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		// ex.getCause().getCause().getClass() gives MyOwnWrittenException
-		// the actual logic that handles the exception...
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(
+		HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		ExceptionDTO dto = ExceptionDTO.builder().message(messageSource.getMessage(ex.getMostSpecificCause().getLocalizedMessage(),null,null)).build();
 		return new ResponseEntity<Object>(dto, HttpStatus.BAD_REQUEST);
 	}
+
 }

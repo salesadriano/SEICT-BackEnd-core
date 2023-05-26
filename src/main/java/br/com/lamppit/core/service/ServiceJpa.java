@@ -2,6 +2,7 @@ package br.com.lamppit.core.service;
 
 import br.com.lamppit.core.exception.EntityNotFound;
 import br.com.lamppit.core.exception.EntityValidationException;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 

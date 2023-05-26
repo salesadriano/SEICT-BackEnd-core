@@ -1,4 +1,4 @@
-package br.com.lamppit.accesscontrol.util;
+package br.com.lamppit.core.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

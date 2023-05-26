@@ -25,6 +25,7 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         format-sql: true
@@ -33,8 +34,6 @@ spring:
         use-sql-comments: true
         enable-lazy-load-no-trans: true
     show-sql: false
-  sql:
-    init:
-      platform: postgres
+
   application:
-    name: api
+    name: core

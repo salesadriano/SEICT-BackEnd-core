@@ -1,14 +1,14 @@
-package br.com.lamppit.accesscontrol.util;
+package br.com.lamppit.core.util;
 
-import br.com.lamppit.accesscontrol.model.dto.UserLoginDto;
+import br.com.lamppit.core.entity.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Slf4j
@@ -17,20 +17,20 @@ public class JwtUtilities {
 
     private final static String SECRET_KEY = "9123E309FB91CE03A059CF57AC5B8B6A9435B5BB33AF8EFC7D6759D2EA9F6956";
 
-    public UserLoginDto extractUserLoginDto(String token) throws SignatureException, ExpiredJwtException,
+    public User extractUser(String token) throws SignatureException, ExpiredJwtException,
             UnsupportedJwtException, MalformedJwtException, IllegalArgumentException, Exception {
 
-        UserLoginDto udto = JsonMapperUtil.mapFromJson(
+        User udto = JsonMapperUtil.mapFromJson(
                 Jwts.parserBuilder().setSigningKey(SECRET_KEY.getBytes()).build().parseClaimsJws(token).getBody()
                         .getSubject(),
-                UserLoginDto.class);
+                User.class);
 
         return udto;
     }
 
-    public String extractEmail(String token) throws SignatureException, ExpiredJwtException, UnsupportedJwtException,
+    public String extractUsername(String token) throws SignatureException, ExpiredJwtException, UnsupportedJwtException,
             MalformedJwtException, IllegalArgumentException, Exception {
-        return extractUserLoginDto(token).getUser().getEmail();
+        return extractUser(token).getUsername();
     }
 
     public Date extractExpiration(String token) {
@@ -60,7 +60,7 @@ public class JwtUtilities {
         return builder.compact();
     }
 
-    public boolean validateToken(String token) {
+    public Boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes())).build().parseClaimsJws(token)
                     .getBody();
