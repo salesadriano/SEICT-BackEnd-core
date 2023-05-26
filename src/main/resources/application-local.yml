@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: postgres
-    password: linuXunil0904@wallMaster
+    password: bla123x
     hikari:
       connection-timeout: 40000 
       idle-timeout:  30000 
