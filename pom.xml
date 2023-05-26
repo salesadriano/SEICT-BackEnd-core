@@ -30,6 +30,7 @@
 		<project.build.plugin.exec.version>3.1.0</project.build.plugin.exec.version>
 
 		<!-- OPEN API -->
+		
 		<web.oas.home>${project.basedir}/src/main/resources/openapi</web.oas.home>
 		<web.oas.spec.name>${project.artifactId}_api_oas3</web.oas.spec.name>
 		<web.oas.spec.extension>.yaml</web.oas.spec.extension>
@@ -44,18 +45,24 @@
 		<web.oas.codegen.fe.angular.version>16</web.oas.codegen.fe.angular.version>
 
 		<web.oas.codegen.postman.skip>false</web.oas.codegen.postman.skip>
-		<web.oas.codegen.postman.output.file>${web.oas.home}/postman/${web.oas.spec.name}_postman.json</web.oas.codegen.postman.output.file>
+		<web.oas.codegen.postman.output.file>${web.oas.home}/spec/postman/${web.oas.spec.name}_postman.json</web.oas.codegen.postman.output.file>
 		<web.oas.codegen.postman.version>v2</web.oas.codegen.postman.version>
 
 		<web.oas.codegen.documentation.html.skip>false</web.oas.codegen.documentation.html.skip>
-		<web.oas.codegen.documentation.html.output.path>${web.oas.home}/docs/html2</web.oas.codegen.documentation.html.output.path>
+		<web.oas.codegen.documentation.html.output.path>${web.oas.home}/docs/html</web.oas.codegen.documentation.html.output.path>
 		
 		<web.oas.codegen.documentation.uml.skip>false</web.oas.codegen.documentation.uml.skip>
-		<web.oas.codegen.documentation.uml.output.path>${web.oas.home}/docs/plantuml</web.oas.codegen.documentation.uml.output.path>
+		<web.oas.codegen.documentation.uml.output.path>${web.oas.home}/docs/uml</web.oas.codegen.documentation.uml.output.path>
 		
 		<web.oas.codegen.spec2json.skip>false</web.oas.codegen.spec2json.skip>
-		<web.oas.codegen.spec2json.output.path>${web.oas.home}/docs/specjson</web.oas.codegen.spec2json.output.path>
+		<web.oas.codegen.spec2json.output.path>${web.oas.home}/spec/json</web.oas.codegen.spec2json.output.path>
 		<web.oas.codegen.spec2json.output.file.name>${web.oas.spec.name}.json</web.oas.codegen.spec2json.output.file.name>
+
+		<web.oas.specgen.legacy.skip>false</web.oas.specgen.legacy.skip>
+		<web.oas.specgen.legacy.apiDocsUrl>http://localhost:8080/v3/api-docs</web.oas.specgen.legacy.apiDocsUrl>
+		<web.oas.specgen.legacy.output.path>${web.oas.home}/spec/legacy</web.oas.specgen.legacy.output.path>
+		<web.oas.specgen.legacy.output.file>${project.artifactId}_api-legacy_oas3.yaml</web.oas.specgen.legacy.output.file>
+		
 
 		<web.oas.jackson-databind-nullable.version>0.2.6</web.oas.jackson-databind-nullable.version>
 		<web.oas.swagger-annotations.version>2.2.10</web.oas.swagger-annotations.version>
@@ -251,6 +258,7 @@
 		<finalName>${project.artifactId}</finalName>
 
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -261,16 +269,34 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
 				</configuration>
+				<executions>
+					<execution>
+						<id>pre-integration-test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-			
+
+			<!--
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>${project.build.plugin.exec.version}</version>
 				<executions>
-					<!-- OAS : Code Gen : Postman -->
-					<!-- DOC: https://github.com/postmanlabs/openapi-to-postman -->
+			-->
+			<!-- OAS : Code Gen : Postman -->
+			<!-- DOC: https://github.com/postmanlabs/openapi-to-postman -->
+			<!-- 
 					<execution>
 						<id>npm-install-openapi-to-postman</id>
 						<goals>
@@ -286,7 +312,9 @@
 							</arguments>
 						</configuration>
 					</execution>
+					-->
 
+			<!-- 
 					<execution>
 						<id>npm-generate-openapi-to-postman</id>
 						<goals>
@@ -299,71 +327,90 @@
 								<argument>-s ${web.oas.codegen.spec.path}</argument>
 								<argument>-o ${web.oas.codegen.postman.output.file}</argument>
 								<argument>-i ${web.oas.codegen.postman.version}</argument>
-								<argument>--pretty </argument>
+								<argument>-p </argument>
 								<argument>-O folderStrategy=Tags,includeAuthInfoInExample=false</argument>
 							</arguments>
 						</configuration>
 					</execution>
-					
-					<!-- <web.oas.codegen.postman.skip>false</web.oas.codegen.postman.skip> -->
-
+					-->
+			<!--		
 				</executions>
 			</plugin>
+			-->
 
 			<!-- OAS : Code Gen -->
 			<!-- DOC: https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md -->
 			<plugin>
-				<groupId>org.openapitools</groupId>
+				<groupId>
+					org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>${project.build.plugin.oas.version}</version>
+				<version>
+					${project.build.plugin.oas.version}</version>
 				<executions>
-					
+
 					<!-- OAS: Back-end files -->
 					<!-- DOC: https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/spring.md -->
 					<execution>
-						<id>openapi-generate-spring</id>
+						<id>
+							openapi-generate-spring</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 
 						<configuration>
 							<!-- IO Options -->
-							<inputSpec>${web.oas.codegen.spec.path}</inputSpec>
-							<output>${web.oas.codegen.be.output.path}</output>
+							<inputSpec>
+								${web.oas.codegen.spec.path}</inputSpec>
+							<output>
+								${web.oas.codegen.be.output.path}</output>
 							<cleanupOutput>true</cleanupOutput>
-							<generatorName>spring</generatorName>
+							<generatorName>
+								spring</generatorName>
 							<skip>${web.oas.codegen.be.skip}</skip>
 
-							<verbose>false</verbose>
+							<verbose>
+								false</verbose>
 							<logToStderr>true</logToStderr>
 							<skipOverwrite>false</skipOverwrite>
-							<skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
+							<skipIfSpecIsUnchanged>
+								false</skipIfSpecIsUnchanged>
 							<skipValidateSpec>false</skipValidateSpec>
-							<strictSpec>false</strictSpec>
+							<strictSpec>
+								false</strictSpec>
 
 							<!-- Package Options -->
-							<packageName>${web.oas.codegen.be.package.base}</packageName>
-							<apiPackage>${web.oas.codegen.be.package.base}.api</apiPackage>
-							<modelPackage>${web.oas.codegen.be.package.base}.model</modelPackage>
-							<invokerPackage>${web.oas.codegen.be.package.base}.invoker</invokerPackage>
+							<packageName>
+								${web.oas.codegen.be.package.base}</packageName>
+							<apiPackage>
+								${web.oas.codegen.be.package.base}.api</apiPackage>
+							<modelPackage>
+								${web.oas.codegen.be.package.base}.model</modelPackage>
+							<invokerPackage>
+								${web.oas.codegen.be.package.base}.invoker</invokerPackage>
 
 							<!-- Generation Options -->
-							<generateApis>true</generateApis>
+							<generateApis>
+								true</generateApis>
 							<generateApiTests>true</generateApiTests>
 							<generateApiDocumentation>true</generateApiDocumentation>
 
-							<generateModels>true</generateModels>
+							<generateModels>
+								true</generateModels>
 							<generateModelTests>true</generateModelTests>
-							<generateModelDocumentation>true</generateModelDocumentation>
+							<generateModelDocumentation>
+								true</generateModelDocumentation>
 
 							<generateSupportingFiles>true</generateSupportingFiles>
 
 							<configOptions>
-								<useSpringBoot3>true</useSpringBoot3>
+								<useSpringBoot3>
+									true</useSpringBoot3>
 								<interfaceOnly>true</interfaceOnly>
-								<skipDefaultInterface>false</skipDefaultInterface>
+								<skipDefaultInterface>
+									false</skipDefaultInterface>
 								<useBeanValidation>true</useBeanValidation>
-								<openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
+								<openapiNormalizer>
+									REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -371,23 +418,30 @@
 					<!-- OAS: Front-end files -->
 					<!-- DOC: https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/typescript-angular.md -->
 					<execution>
-						<id>openapi-generate-typescript-angular</id>
+						<id>
+							openapi-generate-typescript-angular</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 
 						<configuration>
 							<!-- IO Options -->
-							<inputSpec>${web.oas.codegen.spec.path}</inputSpec>
-							<output>${web.oas.codegen.fe.output.path}</output>
+							<inputSpec>
+								${web.oas.codegen.spec.path}</inputSpec>
+							<output>
+								${web.oas.codegen.fe.output.path}</output>
 							<cleanupOutput>true</cleanupOutput>
-							<generatorName>typescript-angular</generatorName>
-							<skip>${web.oas.codegen.fe.skip}</skip>
+							<generatorName>
+								typescript-angular</generatorName>
+							<skip>
+								${web.oas.codegen.fe.skip}</skip>
 
 							<configOptions>
 								<fileNaming>kebab-case</fileNaming>
-								<ngVersion>${web.oas.codegen.fe.angular.version}</ngVersion>
-								<providedIn>none</providedIn>
+								<ngVersion>
+									${web.oas.codegen.fe.angular.version}</ngVersion>
+								<providedIn>
+									none</providedIn>
 								<supportsES6>true</supportsES6>
 							</configOptions>
 
@@ -397,62 +451,98 @@
 					<!-- OAS: Documentation files = HTML -->
 					<!-- DOC: https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/html2.md -->
 					<execution>
-						<id>openapi-generate-documentation-html</id>
+						<id>
+							openapi-generate-documentation-html</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 
 						<configuration>
 							<!-- IO Options -->
-							<inputSpec>${web.oas.codegen.spec.path}</inputSpec>
-							<output>${web.oas.codegen.documentation.html.output.path}</output>
-							<cleanupOutput>true</cleanupOutput>
+							<inputSpec>
+								${web.oas.codegen.spec.path}</inputSpec>
+							<output>
+								${web.oas.codegen.documentation.html.output.path}</output>
+							<cleanupOutput>
+								true</cleanupOutput>
 							<generatorName>html2</generatorName>
-							<skip>${web.oas.codegen.documentation.html.skip}</skip>
+							<skip>
+								${web.oas.codegen.documentation.html.skip}</skip>
 						</configuration>
 					</execution>
 
 					<!-- OAS: Documentation files = UML -->
 					<!-- DOC: https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/plantuml.md -->
 					<execution>
-						<id>openapi-generate-documentation-uml</id>
+						<id>
+							openapi-generate-documentation-uml</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 
 						<configuration>
 							<!-- IO Options -->
-							<inputSpec>${web.oas.codegen.spec.path}</inputSpec>
-							<output>${web.oas.codegen.documentation.uml.output.path}</output>
-							<cleanupOutput>true</cleanupOutput>
+							<inputSpec>
+								${web.oas.codegen.spec.path}</inputSpec>
+							<output>
+								${web.oas.codegen.documentation.uml.output.path}</output>
+							<cleanupOutput>
+								true</cleanupOutput>
 							<generatorName>plantuml</generatorName>
-							<skip>${web.oas.codegen.documentation.uml.skip}</skip>
+							<skip>
+								${web.oas.codegen.documentation.uml.skip}</skip>
 						</configuration>
 					</execution>
 
 					<!-- OAS: Spec as JSON file -->
 					<!-- DOC: https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/openapi.md -->
 					<execution>
-						<id>openapi-generate-spec-json</id>
+						<id>
+							openapi-generate-spec-json</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 
 						<configuration>
 							<!-- IO Options -->
-							<inputSpec>${web.oas.codegen.spec.path}</inputSpec>
-							<output>${web.oas.codegen.spec2json.output.path}</output>
-							<cleanupOutput>true</cleanupOutput>
+							<inputSpec>
+								${web.oas.codegen.spec.path}</inputSpec>
+							<output>
+								${web.oas.codegen.spec2json.output.path}</output>
+							<cleanupOutput>
+								true</cleanupOutput>
 							<generatorName>openapi</generatorName>
-							<skip>${web.oas.codegen.spec2json.skip}</skip>
+							<skip>
+								${web.oas.codegen.spec2json.skip}</skip>
 							
 							<configOptions>
-								<outputFileName>${web.oas.codegen.spec2json.output.file.name}</outputFileName>
+								<outputFileName>
+									${web.oas.codegen.spec2json.output.file.name}</outputFileName>
 							</configOptions>
 						</configuration>
 					</execution>
-
+					
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skip>${web.oas.specgen.legacy.skip}</skip>
+					<apiDocsUrl>${web.oas.specgen.legacy.apiDocsUrl}</apiDocsUrl>
+					<outputDir>${web.oas.specgen.legacy.output.path}</outputDir>
+					<outputFileName>${web.oas.specgen.legacy.output.file}</outputFileName>
+				</configuration>
 			</plugin>
 			
 		</plugins>

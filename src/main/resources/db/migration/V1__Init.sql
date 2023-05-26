@@ -1,0 +1,5 @@
+-- Init script
+
+-- DDL
+CREATE SCHEMA IF NOT EXISTS system AUTHORIZATION postgres;
+CREATE SCHEMA IF NOT EXISTS system_audit AUTHORIZATION postgres;

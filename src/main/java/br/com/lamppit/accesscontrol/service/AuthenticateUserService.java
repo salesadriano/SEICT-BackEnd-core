@@ -1,5 +1,13 @@
 package br.com.lamppit.accesscontrol.service;
 
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import br.com.lamppit.accesscontrol.model.AuthenticationUser;
 import br.com.lamppit.accesscontrol.model.Profile;
 import br.com.lamppit.accesscontrol.model.Systems;
@@ -8,7 +16,13 @@ import br.com.lamppit.accesscontrol.model.dto.ActionPermissionDTO;
 import br.com.lamppit.accesscontrol.model.dto.ChangePasswordParamDTO;
 import br.com.lamppit.accesscontrol.model.dto.UserLoginDto;
 import br.com.lamppit.accesscontrol.model.enumerated.ImportantRoles;
-import br.com.lamppit.accesscontrol.repository.*;
+import br.com.lamppit.accesscontrol.repository.AuthenticationUserRepository;
+import br.com.lamppit.accesscontrol.repository.ExtraPermissionsRepository;
+import br.com.lamppit.accesscontrol.repository.ProfileActionsRepository;
+import br.com.lamppit.accesscontrol.repository.ProfileUserRepository;
+import br.com.lamppit.accesscontrol.repository.ResponsibleAreaRepository;
+import br.com.lamppit.accesscontrol.repository.SystemRepository;
+import br.com.lamppit.accesscontrol.repository.UserRepository;
 import br.com.lamppit.accesscontrol.util.JsonMapperUtil;
 import br.com.lamppit.accesscontrol.util.JwtUtilities;
 import br.com.lamppit.accesscontrol.util.Utils;
@@ -16,23 +30,12 @@ import br.com.lamppit.core.dto.EmailPasswordDTO;
 import br.com.lamppit.core.dto.MessageDTO;
 import br.com.lamppit.core.exception.EntityValidationException;
 import br.com.lamppit.core.service.ServiceJpa;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class AuthenticateUserService extends ServiceJpa<AuthenticationUser, Long> {
 
     @Autowired
     private AuthenticationUserRepository authenticationUserRepository;
-
-    @Autowired
-    private PasswordEncoder encoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -54,8 +57,12 @@ public class AuthenticateUserService extends ServiceJpa<AuthenticationUser, Long
 
     @Autowired
     private JwtUtilities jwtUtilities;
+    
     @Autowired
     private SystemRepository systemRepository;
+    
+    //TODO ver como vai ser a migracao de senhas de usuario
+    private PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Override
     public AuthenticationUserRepository getRepository() {

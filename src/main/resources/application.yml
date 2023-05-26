@@ -25,6 +25,7 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         format-sql: true
@@ -32,9 +33,18 @@ spring:
         type: 'trace'
         use-sql-comments: true
         enable-lazy-load-no-trans: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
   sql:
     init:
       platform: postgres
+  flyway:
+    sql-migration-prefix: V
+    repeatable-sql-migration-prefix: R
+    sql-migration-separator: __
+    sql-migration-suffixes: .sql
+    baseline-on-migrate: true
+    schemas: system,system_audit,public
+    
   application:
     name: api
