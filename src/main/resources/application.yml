@@ -33,6 +33,7 @@ spring:
         type: 'trace'
         use-sql-comments: true
         enable-lazy-load-no-trans: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
 
   application:
