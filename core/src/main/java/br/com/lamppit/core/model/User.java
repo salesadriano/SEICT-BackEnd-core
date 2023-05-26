@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +42,7 @@ public class User extends BaseEntity implements Serializable {
     @NotEmpty(message = "{field.notempty}")
     private String password;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Role> roles;
 
 }

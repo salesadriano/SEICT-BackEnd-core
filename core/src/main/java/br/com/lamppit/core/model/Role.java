@@ -30,10 +30,10 @@ public class Role extends BaseEntity implements GrantedAuthority {
 	private Long id;
 
 	@NotNull(message = "{field.notnull}")
-	private String role;
+	private String authority;
     
     @Override
 	public String getAuthority() {
-		return this.role;
+		return this.authority;
 	}
 }
