@@ -12,11 +12,11 @@ import jakarta.annotation.PostConstruct;
 public class UserService extends ServiceJpa<User, Long> {
  
     @Autowired
-    private UserRepository personRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserRepository getRepository() {
-        return personRepository;
+        return userRepository;
     }
 
     @Override
@@ -35,6 +35,10 @@ public class UserService extends ServiceJpa<User, Long> {
     protected void init() {
         setCacheKey("user.cache.key");
         setEntityKey("user");
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
     
 }
