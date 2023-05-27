@@ -17,21 +17,15 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter
-@Setter
-@Builder
-@RequiredArgsConstructor
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = true)
+@Table(name = "people", schema = "app")
 @Audited
-@Table(name = "people", schema = "commons")
-@AuditTable(value = "people_audit", schema = "commons_audit")
+@AuditTable(value = "people_audit", schema = "app_audit")
 public class Person extends BaseEntity implements Serializable {
 
     @Id

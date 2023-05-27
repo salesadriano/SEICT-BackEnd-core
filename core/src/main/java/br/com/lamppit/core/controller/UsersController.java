@@ -52,7 +52,7 @@ public class UsersController extends Controller<User, Long> {
 
         String jsonReturn = JsonMapperUtil.mapToJson(u);
 
-        String token = jwtUtilities.createJWT(user.getId().toString(), user.getUsername(), jsonReturn, new Date().getTime() + 3600000);
+        String token = jwtUtilities.createJWT(u.getId().toString(), u.getUsername(), jsonReturn, new Date().getTime() + 3600000);
 
         return token;
     }

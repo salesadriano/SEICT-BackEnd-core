@@ -10,18 +10,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
-@Audited
 @Table(name = "roles", schema = "commons")
+@Audited
 @AuditTable(value = "roles_audit", schema = "commons_audit")
 public class Role extends BaseEntity implements GrantedAuthority {
     

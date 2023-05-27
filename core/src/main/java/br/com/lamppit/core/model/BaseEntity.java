@@ -10,15 +10,18 @@ import org.springframework.data.annotation.LastModifiedBy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.lamppit.core.configuration.AuditListener;
 import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Audited
 @MappedSuperclass
 @Data
 @NoArgsConstructor
+@Audited
+@EntityListeners(AuditListener.class)
 public abstract class BaseEntity {
 
 	@JsonIgnore
@@ -47,4 +50,5 @@ public abstract class BaseEntity {
 	@CreatedBy
 	@Column(updatable = false)
 	private Long createdByUser;
+	
 }

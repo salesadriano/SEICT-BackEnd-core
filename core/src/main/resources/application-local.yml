@@ -10,7 +10,7 @@ spring:
       minimum-idle: 5
       maximum-pool-size: 50
       pool-name: core
-    url: jdbc:postgresql://localhost/postgres
+    url: jdbc:postgresql://localhost/core
 
 core:
   allowed-origins: http://localhost:4200

@@ -3,6 +3,7 @@ package br.com.lamppit.core.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.envers.AuditJoinTable;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
@@ -17,18 +18,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
-@Audited
 @Table(name = "users", schema = "commons")
+@Audited
 @AuditTable(value = "users_audit", schema = "commons_audit")
 public class User extends BaseEntity implements Serializable {
 	
@@ -50,6 +47,9 @@ public class User extends BaseEntity implements Serializable {
 		schema = "commons", 
 		joinColumns = @JoinColumn(name = "user_id"), 
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@AuditJoinTable(
+		name = "users_roles_audit", 
+		schema = "commons_audit")
 	private List<Role> roles;
 
 }

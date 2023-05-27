@@ -56,10 +56,13 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
             .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(request -> request
-				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+				.requestMatchers(
+					new AntPathRequestMatcher("/users/login")
+				).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/users/**")).hasAnyRole("ADMIN")
 				.anyRequest()
 				.authenticated()
-		);        
+		);       
 		
 		return http.build();
     }
