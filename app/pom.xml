@@ -78,6 +78,24 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/projects/5/packages/maven</url>
+		</repository>
+	</repositories>
+	
+	<distributionManagement>
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/projects/5/packages/maven</url>
+		</repository>
+		<snapshotRepository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/projects/5/packages/maven</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>

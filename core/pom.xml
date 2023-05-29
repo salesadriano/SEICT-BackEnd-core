@@ -70,11 +70,6 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-		<groupId>org.flywaydb</groupId>
-		<artifactId>flyway-core</artifactId>
-		</dependency>
-
 
 		<!-- Adições -->
 		<dependency>
@@ -107,6 +102,42 @@
 			<version>6.2.3.Final</version>
 		</dependency>
 	</dependencies>
+
+	<!-- <repositories>
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/groups/5/-/packages/maven</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/groups/5/-/packages/maven</url>
+		</repository>
+		<snapshotRepository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/groups/5/-/packages/maven</url>
+		</snapshotRepository>
+	</distributionManagement> -->
+
+	<repositories>
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/projects/5/packages/maven</url>
+		</repository>
+	</repositories>
+	
+	<distributionManagement>
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/projects/5/packages/maven</url>
+		</repository>
+		<snapshotRepository>
+			<id>gitlab-maven</id>
+			<url>https://cicdseictac.lampp-it.com.br/api/v4/projects/5/packages/maven</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<profiles>
 	    <profile>
