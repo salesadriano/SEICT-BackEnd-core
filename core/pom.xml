@@ -45,8 +45,8 @@
 		<web.oas.codegen.fe.angular.version>16</web.oas.codegen.fe.angular.version>
 
 		<web.oas.docgen.postman.skip>false</web.oas.docgen.postman.skip>
-		<web.oas.docgen.postman.output.file>
-			${oas.home}/generated/docs/postman/${oas.spec.name}_postman.json</web.oas.docgen.postman.output.file>
+		<web.oas.docgen.postman.output.path>${oas.home}/generated/docs/postman</web.oas.docgen.postman.output.path>
+		<web.oas.docgen.postman.output.file>${web.oas.docgen.postman.output.path}/${oas.spec.name}_postman.json</web.oas.docgen.postman.output.file>
 		<web.oas.docgen.postman.version>v2</web.oas.docgen.postman.version>
 		<web.oas.docgen.postman.customization>folderStrategy=Tags,includeAuthInfoInExample=false</web.oas.docgen.postman.customization>
 

@@ -35,4 +35,5 @@ build/
 htpasswd
 
 ### OpenApi Auto Generated ###
+#TODO: discutir se esses arquivos serao versionados ou nao.
 **/src/main/resources/openapi/generated/**
