@@ -60,11 +60,6 @@
 		<web.oas.specgen.spec2json.output.path>${oas.home}/generated/spec/json</web.oas.specgen.spec2json.output.path>
 		<web.oas.specgen.spec2json.output.file.name>${oas.spec.name}.json</web.oas.specgen.spec2json.output.file.name>
 
-		<web.oas.specgen.legacy.skip>true</web.oas.specgen.legacy.skip>
-		<web.oas.specgen.legacy.apiDocsUrl>http://localhost:8080/v3/api-docs</web.oas.specgen.legacy.apiDocsUrl>
-		<web.oas.specgen.legacy.output.path>${oas.home}/generated/spec/legacy</web.oas.specgen.legacy.output.path>
-		<web.oas.specgen.legacy.output.file>${project.artifactId}_api-legacy_oas3.yaml</web.oas.specgen.legacy.output.file>
-
 		<web.oas.jackson-databind-nullable.version>0.2.6</web.oas.jackson-databind-nullable.version>
 		<web.oas.swagger-annotations.version>2.2.10</web.oas.swagger-annotations.version>
 		<web.oas.problem.version>0.27.1</web.oas.problem.version>
@@ -264,34 +259,6 @@
 		<plugins>
 
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-					<!-- <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments> -->
-				</configuration>
-				<!-- <executions>
-					<execution>
-						<id>pre-integration-test</id>
-						<goals>
-							<goal>start</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>post-integration-test</id>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions> -->
-			</plugin>
-
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>${project.build.plugin.exec.version}</version>
@@ -300,7 +267,7 @@
 					<!-- OAS : Code Gen : Postman -->
 					<!-- DOC: https://github.com/postmanlabs/openapi-to-postman -->
 
-					<execution>
+					<!-- <execution>
 						<id>npm-install-openapi-to-postman</id>
 						<goals>
 							<goal>exec</goal>
@@ -314,7 +281,7 @@
 								<argument>openapi-to-postmanv2</argument>
 							</arguments>
 						</configuration>
-					</execution>
+					</execution> -->
 
 					<execution>
 						<id>npm-generate-openapi-to-postman</id>
@@ -492,27 +459,6 @@
 
 				</executions>
 			</plugin>
-
-			<!-- WIP: Gerar Spec do legado -->
-			<!-- <plugin>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-maven-plugin</artifactId>
-				<version>${project.build.plugin.specgen.legacy.version}</version>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<skip>${web.oas.specgen.legacy.skip}</skip>
-					<apiDocsUrl>${web.oas.specgen.legacy.apiDocsUrl}</apiDocsUrl>
-					<outputDir>${web.oas.specgen.legacy.output.path}</outputDir>
-					<outputFileName>${web.oas.specgen.legacy.output.file}</outputFileName>
-				</configuration>
-			</plugin> -->
 
 		</plugins>
 	</build>

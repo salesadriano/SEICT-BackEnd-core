@@ -28,12 +28,12 @@ public abstract class Controller<Entity extends Serializable, TypeSequence exten
 	}
 
 	@GetMapping("{id}")
-	protected Entity one(@PathVariable TypeSequence id) throws EntityValidationException {
+	protected Entity searchById(@PathVariable TypeSequence id) throws EntityValidationException {
 		return getService().getOne(id);
 	}
 
 	@DeleteMapping("{id}")
-	protected void deleteEntidade(@PathVariable TypeSequence id) throws EntityValidationException {
+	protected void deleteEntity(@PathVariable TypeSequence id) throws EntityValidationException {
 		getService().deleteById(id);
 	}
 }
