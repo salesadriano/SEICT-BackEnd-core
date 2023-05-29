@@ -33,3 +33,6 @@ build/
 .vscode/
 
 htpasswd
+
+### OpenApi Auto Generated ###
+**/src/main/resources/openapi/generated/**

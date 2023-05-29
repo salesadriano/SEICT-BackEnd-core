@@ -1,39 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>br.com.lamppit</groupId>
 	<artifactId>core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- <packaging>war</packaging> -->
 	<name>core</name>
 	<description>Demo project for Spring Boot</description>
+	<!-- <packaging>war</packaging> -->
+
 	<properties>
 		<java.version>17</java.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<project.build.plugin.oas.version>6.6.0</project.build.plugin.oas.version>
+		<project.build.plugin.exec.version>3.1.0</project.build.plugin.exec.version>
+		<project.build.plugin.specgen.legacy.version>1.4</project.build.plugin.specgen.legacy.version>
+
+		<!-- OPEN API -->
+
+		<oas.home>${project.basedir}/src/main/resources/openapi</oas.home>
+		<oas.spec.name>${project.artifactId}_api_oas3</oas.spec.name>
+		<oas.spec.extension>.yaml</oas.spec.extension>
+		<oas.spec.file.location>${oas.home}/spec/${oas.spec.name}${oas.spec.extension}</oas.spec.file.location>
+
+		<web.oas.codegen.be.skip>false</web.oas.codegen.be.skip>
+		<web.oas.codegen.be.output.path>${project.build.directory}/generated-sources/openapi</web.oas.codegen.be.output.path>
+		<web.oas.codegen.be.package.base>${project.groupId}.${project.artifactId}.oas</web.oas.codegen.be.package.base>
+
+		<web.oas.codegen.fe.skip>true</web.oas.codegen.fe.skip>
+		<web.oas.codegen.fe.output.path>${oas.home}/generated/fe/lib-client</web.oas.codegen.fe.output.path>
+		<web.oas.codegen.fe.angular.version>16</web.oas.codegen.fe.angular.version>
+
+		<web.oas.docgen.postman.skip>false</web.oas.docgen.postman.skip>
+		<web.oas.docgen.postman.output.file>
+			${oas.home}/generated/docs/postman/${oas.spec.name}_postman.json</web.oas.docgen.postman.output.file>
+		<web.oas.docgen.postman.version>v2</web.oas.docgen.postman.version>
+		<web.oas.docgen.postman.customization>folderStrategy=Tags,includeAuthInfoInExample=false</web.oas.docgen.postman.customization>
+
+		<web.oas.docgen.html.skip>false</web.oas.docgen.html.skip>
+		<web.oas.docgen.html.output.path>${oas.home}/generated/docs/html</web.oas.docgen.html.output.path>
+
+		<web.oas.docgen.uml.skip>false</web.oas.docgen.uml.skip>
+		<web.oas.docgen.uml.output.path>${oas.home}/generated/docs/uml</web.oas.docgen.uml.output.path>
+
+		<web.oas.specgen.spec2json.skip>false</web.oas.specgen.spec2json.skip>
+		<web.oas.specgen.spec2json.output.path>${oas.home}/generated/spec/json</web.oas.specgen.spec2json.output.path>
+		<web.oas.specgen.spec2json.output.file.name>${oas.spec.name}.json</web.oas.specgen.spec2json.output.file.name>
+
+		<web.oas.specgen.legacy.skip>true</web.oas.specgen.legacy.skip>
+		<web.oas.specgen.legacy.apiDocsUrl>http://localhost:8080/v3/api-docs</web.oas.specgen.legacy.apiDocsUrl>
+		<web.oas.specgen.legacy.output.path>${oas.home}/generated/spec/legacy</web.oas.specgen.legacy.output.path>
+		<web.oas.specgen.legacy.output.file>${project.artifactId}_api-legacy_oas3.yaml</web.oas.specgen.legacy.output.file>
+
+		<web.oas.jackson-databind-nullable.version>0.2.6</web.oas.jackson-databind-nullable.version>
+		<web.oas.swagger-annotations.version>2.2.10</web.oas.swagger-annotations.version>
+		<web.oas.problem.version>0.27.1</web.oas.problem.version>
+
+		<!-- SECURITY -->
+		<security.jjwt.version>0.11.5</security.jjwt.version>
+
+		<!-- TEST -->
+		<test.jsoup.version>1.14.2</test.jsoup.version>
+
 	</properties>
+
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
+		<!-- WEB -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -41,59 +87,10 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-		<groupId>org.flywaydb</groupId>
-		<artifactId>flyway-core</artifactId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-
-		<!-- Adições -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
-		</dependency>	
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
-		</dependency>		
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
-		</dependency>
+		<!-- OPEN API -->
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -102,40 +99,423 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-envers</artifactId>
-			<version>6.2.3.Final</version>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>${web.oas.jackson-databind-nullable.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${web.oas.swagger-annotations.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>problem</artifactId>
+			<version>${web.oas.problem.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>jackson-datatype-problem</artifactId>
+			<version>${web.oas.problem.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>problem-gson</artifactId>
+			<version>${web.oas.problem.version}</version>
+		</dependency>
+
+		<!-- SECURITY -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${security.jjwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${security.jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${security.jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- PERSISTENCE -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-envers</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<!-- DEVELOPMENT SUPPORT -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- TEST -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${test.jsoup.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<profiles>
-	    <profile>
-	        <id>local</id>
-	        <activation>
-	            <activeByDefault>true</activeByDefault>
-	        </activation>
-	        <properties>
-	            <spring.profiles.active>local</spring.profiles.active>
-	        </properties>
-	    </profile>
-	    <profile>
-	        <id>develop</id>
-	        <properties>
-	            <spring.profiles.active>develop</spring.profiles.active>
-	        </properties>
-	    </profile>
-	    <profile>
-	        <id>homolog</id>
-	        <properties>
-	            <spring.profiles.active>homolog</spring.profiles.active>
-	        </properties>
-	    </profile>
-	    <profile>
-	        <id>main</id>
-	        <properties>
-	            <spring.profiles.active>main</spring.profiles.active>
-	        </properties>
-	    </profile>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<spring.profiles.active>local</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>develop</id>
+			<properties>
+				<spring.profiles.active>develop</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>homolog</id>
+			<properties>
+				<spring.profiles.active>homolog</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>main</id>
+			<properties>
+				<spring.profiles.active>main</spring.profiles.active>
+			</properties>
+		</profile>
 	</profiles>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+					<!-- <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments> -->
+				</configuration>
+				<!-- <executions>
+					<execution>
+						<id>pre-integration-test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions> -->
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${project.build.plugin.exec.version}</version>
+				<executions>
+
+					<!-- OAS : Code Gen : Postman -->
+					<!-- DOC: https://github.com/postmanlabs/openapi-to-postman -->
+
+					<execution>
+						<id>npm-install-openapi-to-postman</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>initialize</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>i</argument>
+								<argument>-g</argument>
+								<argument>openapi-to-postmanv2</argument>
+							</arguments>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>npm-generate-openapi-to-postman</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<executable>openapi2postmanv2</executable>
+							<arguments>
+								<argument>-s</argument>
+								<argument>${oas.spec.file.location}</argument>
+								<argument>-o</argument>
+								<argument>${web.oas.docgen.postman.output.file}</argument>
+								<argument>-i</argument>
+								<argument>${web.oas.docgen.postman.version}</argument>
+								<argument>--pretty</argument>
+								<argument>-O</argument>
+								<argument>${web.oas.docgen.postman.customization}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<!-- OAS : Code Gen -->
+			<!-- DOC:
+			https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md -->
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>${project.build.plugin.oas.version}</version>
+				<executions>
+
+					<!-- OAS: Back-end files -->
+					<!-- DOC:
+					https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/spring.md -->
+					<execution>
+						<id>openapi-generate-spring</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<!-- IO Options -->
+							<inputSpec>${oas.spec.file.location}</inputSpec>
+							<output>${web.oas.codegen.be.output.path}</output>
+							<cleanupOutput>true</cleanupOutput>
+							<generatorName>spring</generatorName>
+							<skip>${web.oas.codegen.be.skip}</skip>
+
+							<verbose>false</verbose>
+							<logToStderr>true</logToStderr>
+							<skipOverwrite>false</skipOverwrite>
+							<skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
+							<skipValidateSpec>false</skipValidateSpec>
+							<strictSpec>false</strictSpec>
+
+							<!-- Package Options -->
+							<packageName>${web.oas.codegen.be.package.base}</packageName>
+							<apiPackage>${web.oas.codegen.be.package.base}.api</apiPackage>
+							<modelPackage>${web.oas.codegen.be.package.base}.model</modelPackage>
+							<invokerPackage>${web.oas.codegen.be.package.base}.invoker</invokerPackage>
+
+							<!-- Generation Options -->
+							<generateApis>true</generateApis>
+							<generateApiTests>true</generateApiTests>
+							<generateApiDocumentation>true</generateApiDocumentation>
+
+							<generateModels>true</generateModels>
+							<generateModelTests>true</generateModelTests>
+							<generateModelDocumentation>true</generateModelDocumentation>
+
+							<generateSupportingFiles>true</generateSupportingFiles>
+
+							<configOptions>
+								<useSpringBoot3>true</useSpringBoot3>
+								<interfaceOnly>true</interfaceOnly>
+								<skipDefaultInterface>false</skipDefaultInterface>
+								<useBeanValidation>true</useBeanValidation>
+								<openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<!-- OAS: Front-end files -->
+					<!-- DOC:
+					https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/typescript-angular.md -->
+					<execution>
+						<id>
+							openapi-generate-typescript-angular</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<!-- IO Options -->
+							<inputSpec>${oas.spec.file.location}</inputSpec>
+							<output>${web.oas.codegen.fe.output.path}</output>
+							<cleanupOutput>true</cleanupOutput>
+							<generatorName>typescript-angular</generatorName>
+							<skip>${web.oas.codegen.fe.skip}</skip>
+
+							<configOptions>
+								<fileNaming>kebab-case</fileNaming>
+								<ngVersion>${web.oas.codegen.fe.angular.version}</ngVersion>
+								<providedIn>none</providedIn>
+								<supportsES6>true</supportsES6>
+							</configOptions>
+
+						</configuration>
+					</execution>
+
+					<!-- OAS: Documentation files = HTML -->
+					<!-- DOC:
+					https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/html2.md -->
+					<execution>
+						<id>openapi-generate-documentation-html</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<!-- IO Options -->
+							<inputSpec>${oas.spec.file.location}</inputSpec>
+							<output>${web.oas.docgen.html.output.path}</output>
+							<cleanupOutput>true</cleanupOutput>
+							<generatorName>html2</generatorName>
+							<skip>${web.oas.docgen.html.skip}</skip>
+						</configuration>
+					</execution>
+
+					<!-- OAS: Documentation files = UML -->
+					<!-- DOC:
+					https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/plantuml.md -->
+					<execution>
+						<id>openapi-generate-documentation-uml</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<!-- IO Options -->
+							<inputSpec>${oas.spec.file.location}</inputSpec>
+							<output>${web.oas.docgen.uml.output.path}</output>
+							<cleanupOutput>true</cleanupOutput>
+							<generatorName>plantuml</generatorName>
+							<skip>${web.oas.docgen.uml.skip}</skip>
+						</configuration>
+					</execution>
+
+					<!-- OAS: Spec as JSON file -->
+					<!-- DOC:
+					https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/openapi.md -->
+					<execution>
+						<id>openapi-generate-spec-json</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<!-- IO Options -->
+							<inputSpec>${oas.spec.file.location}</inputSpec>
+							<output>${web.oas.specgen.spec2json.output.path}</output>
+							<cleanupOutput>true</cleanupOutput>
+							<generatorName>openapi</generatorName>
+							<skip>${web.oas.specgen.spec2json.skip}</skip>
+
+							<configOptions>
+								<outputFileName>${web.oas.specgen.spec2json.output.file.name}</outputFileName>
+							</configOptions>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<!-- WIP: Gerar Spec do legado -->
+			<!-- <plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>${project.build.plugin.specgen.legacy.version}</version>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skip>${web.oas.specgen.legacy.skip}</skip>
+					<apiDocsUrl>${web.oas.specgen.legacy.apiDocsUrl}</apiDocsUrl>
+					<outputDir>${web.oas.specgen.legacy.output.path}</outputDir>
+					<outputFileName>${web.oas.specgen.legacy.output.file}</outputFileName>
+				</configuration>
+			</plugin> -->
+
+		</plugins>
+	</build>
+
 
 </project>
